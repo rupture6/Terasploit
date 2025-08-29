@@ -7,8 +7,7 @@ try:
     if sys.argv[1:]:
         pass
 
-    # Start command line interface of console if
-    # there is no argument vector specified.
+    # Start command line interface if no argv is specified.
     else:
         pass
 
