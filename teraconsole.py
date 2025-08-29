@@ -4,9 +4,6 @@
 try:
     import sys
 
-    # Disable bytecode compilation.
-    sys.dont_write_bytecode = True
-
     if sys.argv[1:]:
         pass
 
