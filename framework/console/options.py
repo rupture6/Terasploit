@@ -5,8 +5,8 @@ from typing import Any
 from dataclasses import dataclass, field
 
 # Console lib
-from lib.utils.validator import Validate
-from lib.container.console import Setting
+from src.utils.validator import Validate
+from src.container.console import Setting
 
 
 @dataclass
