@@ -4,7 +4,7 @@
 from dataclasses import dataclass, field
 from typing import Any, Callable
 
-# Console src
+# Src
 from src.utils.validator import Validate
 
 

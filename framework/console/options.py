@@ -4,7 +4,7 @@
 from typing import Any
 from dataclasses import dataclass, field
 
-# Console src
+# Src
 from src.utils.validator import Validate
 
 

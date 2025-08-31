@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Console src
+# Src
 from src.utils.printer import printf
 from src.utils.path import module_list
 
@@ -43,7 +43,7 @@ def display_banner() -> None:
         # Display the ASCII art banner
         ascii_art,
         "\n\x1b[33m"
-        f"Terasploit Framework {version}"
+        f"Terasploit Framework {version} (CLI)"
         "\x1b[0m\n\n",
 
         # Display the copyright

@@ -6,7 +6,7 @@ import readline
 import atexit
 import traceback
 
-# Console src
+# Src
 from src.utils.printer import print_error, printf
 from src.container.module import Module
 from src.container.console import Setting, Logging

@@ -5,7 +5,7 @@ import re
 from typing import Any
 from pathlib import Path
 
-# Console src
+# Src
 from src.utils.printer import printf
 
 # Precompiled Regex Patterns

@@ -29,3 +29,7 @@ class ValidationError(TerasploitException):
 
 class InvalidError(TerasploitException):
     """Raised when an object is invalid."""
+
+
+class NotFoundError(TerasploitException):
+    """Raised when a requested resource is not found."""
