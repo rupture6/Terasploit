@@ -5,8 +5,8 @@ import logging
 from typing import Any
 from logging.handlers import RotatingFileHandler
 
-# Src
-from src.container.console import Setting
+# Lib
+from lib.container.console import Setting
 
 
 class Log:

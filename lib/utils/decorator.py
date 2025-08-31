@@ -4,10 +4,10 @@
 from functools import wraps
 from typing import Any
 
-# Src
-from src.utils.printer import printf
-from src.utils.exception import InvalidError
-from src.container.module import Module
+# Lib
+from lib.utils.printer import printf
+from lib.utils.exception import InvalidError
+from lib.container.module import Module
 
 # Framework
 from framework.console.options import Opt

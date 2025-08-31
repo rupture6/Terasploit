@@ -5,8 +5,8 @@ import re
 from typing import Any
 from pathlib import Path
 
-# Src
-from src.utils.printer import printf
+# Lib
+from lib.utils.printer import printf
 
 # Precompiled Regex Patterns
 

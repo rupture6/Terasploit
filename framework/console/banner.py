@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Src
-from src.utils.printer import printf
-from src.utils.path import module_list
+# Lib
+from lib.utils.printer import printf
+from lib.utils.path import module_list
 
 # Framework
 from framework.metadata import (

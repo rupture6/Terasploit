@@ -5,8 +5,8 @@
 import socket
 import select
 
-# Src
-from src.utils.printer import print_error
+# Lib
+from lib.utils.printer import print_error
 
 # Framework
 from framework.console.options import Opt

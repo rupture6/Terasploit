@@ -6,11 +6,11 @@ import readline
 import atexit
 import traceback
 
-# Src
-from src.utils.printer import print_error, printf
-from src.container.module import Module
-from src.container.console import Setting, Logging
-from src.utils.exception import TerasploitException
+# Lib
+from lib.utils.printer import print_error, printf
+from lib.container.module import Module
+from lib.container.console import Setting, Logging
+from lib.utils.exception import TerasploitException
 
 # Framework
 from framework.console.banner import display_banner

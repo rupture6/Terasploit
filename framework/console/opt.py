@@ -4,8 +4,8 @@
 from dataclasses import dataclass, field
 from typing import Any, Callable
 
-# Src
-from src.utils.validator import Validate
+# Lib
+from lib.utils.validator import Validate
 
 
 @dataclass

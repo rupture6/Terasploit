@@ -4,8 +4,8 @@
 from typing import Any
 from functools import wraps
 
-# Src
-from src.utils.printer import print_error
+# Lib
+from lib.utils.printer import print_error
 
 
 def err_decorator(default_return: Any = None):
