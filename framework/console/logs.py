@@ -14,7 +14,7 @@ class Log:
 
     def __init__(
         self,
-        logfile: str = "terasploit.log6",
+        logfile: str = "terasploit.log",
         level: str | int = Setting.log_level,
         console: bool = True,
     ) -> None:
