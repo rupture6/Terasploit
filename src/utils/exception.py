@@ -7,7 +7,11 @@
 class TerasploitException(Exception):
     """Base exception for the project."""
 
-    def __init__(self, message: str = "", details: str = ""):
+    def __init__(
+        self,
+        message: str = "",
+        details: str = ""
+    ):
         super().__init__(message)
         self.message = message
         self.details = details

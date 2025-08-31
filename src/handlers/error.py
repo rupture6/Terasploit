@@ -4,7 +4,7 @@
 from typing import Any
 from functools import wraps
 
-# Console
+# Console src
 from src.utils.printer import print_error
 
 

@@ -4,8 +4,7 @@
 import sys
 from typing import Any, TextIO
 
-# Console lib
-from src.container.console import Setting
+# Console src
 
 
 class ConsolePrinter:
@@ -18,15 +17,41 @@ class ConsolePrinter:
         end: str = "\n",
         file: TextIO = sys.stdout,
         flush: bool = False,
-        verbose: bool = Setting.verbose,
+        verbose: bool = True,
         prefix: str = "",
     ) -> None:
-        if not verbose:
+        """Initialize the printer with given parameters."""
+
+        # Return if verbose is false
+        if verbose is False:
             return
-        message = f"{prefix} {sep.join(str(arg) for arg in args)}".strip()
-        file.write(message + end)
-        if flush:
-            file.flush()
+
+        self.prefix: str = prefix
+        self.args: Any = args
+        self.sep: str = sep
+        self.end: str = end
+        self.file: Any = file
+        self.flush: bool = flush
+
+        self._print()
+
+    def _print(self) -> None:
+        """Main print function."""
+        if not self.file:
+            return
+
+        sep: str = " " if not self.sep else self.sep
+        end: str = "\n" if not self.end else self.end
+
+        # Writes the content of the print
+        for i, arg in enumerate(self.args):
+            if i:
+                self.file.write(str(sep))
+            self.file.write(str(arg))
+        self.file.write(str(end))
+
+        if self.flush is True:
+            self.file.flush()
 
 
 # Core print functions

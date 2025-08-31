@@ -4,8 +4,9 @@
 import re
 from typing import Any
 from pathlib import Path
-from src.utils.printer import printf
 
+# Console src
+from src.utils.printer import printf
 
 # Precompiled Regex Patterns
 

@@ -4,9 +4,8 @@
 from typing import Any
 from dataclasses import dataclass, field
 
-# Console lib
+# Console src
 from src.utils.validator import Validate
-from src.container.console import Setting
 
 
 @dataclass
@@ -35,7 +34,7 @@ class Opt:
             "PROXY": None,
             "SSL_VERIFY": False,
             "RANDOM_AGENT": False,
-            "VERBOSE": Setting.verbose,
+            "VERBOSE": True,
             "LHOST": None,
             "LPORT": 4444,
             "TIMEOUT": None,
