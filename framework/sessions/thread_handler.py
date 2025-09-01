@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
-
 # Python lib
 import threading
-from typing import Any
+from typing import Any, Optional
 
 # Session handler for managing active sessions and networking state
 
@@ -23,7 +22,7 @@ class Session:
     active_connector = threading.Event()
 
     # Handler thread and sockets
-    handler_thread: threading.Thread | None = None
+    handler_thread: Optional[threading.Thread] = None
     server_socket: Any = None
 
     @classmethod
