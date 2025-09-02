@@ -8,19 +8,22 @@ from functools import wraps
 from lib.utils.printer import print_error
 
 
-def err_decorator(default_return: Any = None):
+def error_handler(
+    default_return: Any = None,
+    expected_error: Any = Exception
+):
     """A decorator to handle errors in functions."""
 
     def decorator(func: Any) -> Any:
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
-
-            # Placing the function inside a try-exception
-            # block to catch the error.
             try:
                 return func(*args, **kwargs)
-            except Exception as e:
-                print_error(f"error: {func.__name__} failed: {e}")
-                return default_return
+            except expected_error as e:
+                print_error(f"error: {func.__name__} info: {e}")
+                if callable(default_return):
+                    return default_return()
+                else:
+                    return default_return
         return wrapper
     return decorator

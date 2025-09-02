@@ -1,20 +1,30 @@
 # -*- coding: utf-8 -*-
 
 # Python lib
+import subprocess
 import os
+import shlex
 import readline
 import atexit
 import traceback
+from typing import Any
 
 # Lib
-from lib.utils.printer import print_error, printf
 from lib.container.module import Module
 from lib.container.console import Setting, Logging
-from lib.utils.exception import TerasploitException
+from lib.utils.exception import TerasploitException, InvalidError
+from lib.utils.printer import (
+    print_status,
+    print_warning,
+    print_error,
+    printf
+)
 
 # Framework
 from framework.console.banner import display_banner
 from framework.console.logs import Log
+from framework.sessions.thread_handler import Session
+from framework.console.command.core import Command
 
 
 class Interpreter:
@@ -30,6 +40,9 @@ class Interpreter:
         ".tera_history"
     )
 
+    # Termination commands
+    terminate_command = ["exit", "quit", "done", "close", "terminate"]
+
     def __init__(self) -> None:
         """Initialize the interpreter."""
 
@@ -39,8 +52,6 @@ class Interpreter:
             level=Setting.log_level,
             console=Setting.logging
         )
-
-        Logging.instance.log("Interpreter initialized.")
 
         # Create history file if it does not exist
         history_file_path = self.history_file
@@ -52,7 +63,11 @@ class Interpreter:
         readline.set_history_length(self.history_length)
         atexit.register(readline.write_history_file, history_file_path)
 
+        # Activate command line
         self.activate_command_line = True
+
+        # Log interpreter initialization
+        Logging.instance.log("Interpreter initialized.")
 
     def exception_message(self, exception: Exception) -> None:
         """Display exception message."""
@@ -74,8 +89,8 @@ class Interpreter:
         # Returns basic prompt if no module is loaded
         if Module.module is None:
             return (
-                f"\001\x1b[4m\002{Setting.prompt_user}\001\x1b[0m\002 "
-                f"{Setting.prompt_char} "
+                f"\001\x1b[4m\002{Setting.prompt_user}\001\x1b[0m\002"
+                f" {Setting.prompt_char} "
             )
 
         # Creates a module prompt
@@ -94,7 +109,6 @@ class Interpreter:
 
     def parse_line(self, line: str) -> tuple[str, dict[str, str]]:
         """Parse a command line into a command and its arguments."""
-
         if not line:
             return "", {}
 
@@ -107,15 +121,20 @@ class Interpreter:
 
     def main(self) -> None:
         """Start the command line interface."""
-
-        # Displays the banner first
         display_banner()
 
         # The main command loop
         while self.activate_command_line is True:
             try:
                 command, kwargs = self.parse_line(input(self.prompt()))
-                printf(f"Command: {command}, Arguments: {kwargs}")
+
+                # Check for termination commands
+                if command in self.terminate_command:
+                    self.terminate(command, kwargs)
+                    return
+
+                if hasattr(Command, f"command_{command}"):
+                    getattr(Command, f"command_{command}")(self, **kwargs)()
 
             except TerasploitException as e:
                 self.exception_message(e)
@@ -124,3 +143,72 @@ class Interpreter:
             except Exception as e:
                 self.exception_message(e)
                 Logging.instance.log(str(e), level="ERROR")
+
+    def terminate(self, command: str, kwargs: dict[str, Any]) -> None:
+        """Handle the termination of the command line interface."""
+
+        # Check for invalid arguments
+        if kwargs:
+            print_error(f"The {command} command does not accept arguments.")
+            return
+
+        # Check for active sessions
+        if Session.sessions:
+            print_warning(
+                f"There are {len(Session.sessions)}"
+                " currently active session(s), "
+                "terminate all session before exiting."
+            )
+            print_status(
+                'Use the command "kill all" to terminate all sessions.'
+                )
+            return
+
+        # Log the exit
+        Logging.instance.log("Console terminated")
+
+        # Stop the command line interface
+        self.activate_command_line = False
+
+    def shell_exec(self, command: str, **kwargs: dict[str, Any]) -> None:
+        """Execute a command in the system shell."""
+        if command == "exec":
+            print_error(
+                f'Unknown command "{command}", use "help" for more details.'
+            )
+            return
+
+        # Construct the full command
+        if kwargs:
+            arguments = [str(value) for value in kwargs.values()]
+            full_command = " ".join([command] + arguments)
+        else:
+            full_command = command
+
+        # Execute the command
+        try:
+            result = subprocess.run(
+                shlex.split(full_command),
+                stdout=subprocess.PIPE,
+                check=False,
+                text=True,
+            )
+
+            # Check for errors
+            if result.returncode != 0:
+                raise InvalidError(
+                    "An error occurred during shell execution."
+                )
+
+            # Check for output
+            if result.stdout:
+                print_status(f"Executed: {full_command}\n")
+                printf(result.stdout)
+
+        except FileNotFoundError:
+            print_error(
+                f'Unknown command "{command}", use "help" for more details.'
+            )
+
+        except ValueError as error:
+            print_error(f"Exec error: {error}")

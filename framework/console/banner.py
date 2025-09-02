@@ -55,6 +55,6 @@ def display_banner() -> None:
         "\n\n",
 
         # Display the module count
-        " "*2, f"{module_count}",
+        " "*1, f"{module_count}",
         "\n"
     )

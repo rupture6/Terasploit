@@ -92,42 +92,62 @@ class Opt:
     options: dict[str, Any] = field(init=False)
 
     def __post_init__(self) -> None:
-        self.reset_to_defaults()
+        self.reset_to_default()
 
     @staticmethod
     def format_value(value: Any) -> Any:
-        """Convert string input into bool/int/float when possible."""
-        if isinstance(value, str):
-            val = value.strip().lower()
-            if val in {"true", "false"}:
-                return val == "true"
-            for cast in (int, float):
-                try:
-                    return cast(value)
-                except ValueError:
-                    pass
+        """Convert a string into bool, int, or float when possible."""
+        if not isinstance(value, str):
+            return value
+
+        txt = value.strip().lower()
+
+        if txt in {"true", "false"}:
+            return txt == "true"
+
+        for cast in (int, float):
+            try:
+                return cast(txt)
+            except ValueError:
+                continue
+
         return value
 
-    def clear_mode(self) -> None:
+    @classmethod
+    def clear_mode(cls) -> None:
         """Clear auxiliary mode."""
-        self.auxiliary_mode.clear()
+        cls.auxiliary_mode.clear()
 
-    def clear_target(self) -> None:
+    @classmethod
+    def clear_target(cls) -> None:
         """Clear exploit target."""
-        self.exploit_target.clear()
+        cls.exploit_target.clear()
 
-    def reset_to_defaults(self) -> None:
+    @classmethod
+    def reset_to_default(cls) -> None:
         """Restore all options and metadata to defaults."""
-        self.options = self.default_options.copy()
-        self.registered_module_options.clear()
-        self.registered_payload_options.clear()
+
+        # Reset all options to their default values
+        for opt_list in [
+            cls.registered_module_options,
+            cls.registered_payload_options
+        ]:
+            for key in opt_list:
+                if key not in cls.default_options:
+                    del cls.options[key]
+                    continue
+                cls.options[key] = cls.default_options[key]
+
+        # Clear registered options
+        cls.registered_module_options.clear()
+        cls.registered_payload_options.clear()
 
         # Reset metadata copies
-        self.required = self.required.copy()
-        self.description = self.description.copy()
-        self.validator = self.validator.copy()
+        cls.required = cls.required.copy()
+        cls.description = cls.description.copy()
+        cls.validator = cls.validator.copy()
 
 
-def get_option_value(opt: Opt, key: str = "") -> Any:
+def get_option_value(key: str = "") -> Any:
     """Access stored option(s). Keys must be uppercase."""
-    return opt.options if not key else opt.options.get(key.upper())
+    return Opt.options if not key else Opt.options.get(key.upper())
