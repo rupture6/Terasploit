@@ -7,15 +7,17 @@ from typing import ClassVar
 class CommandMetadata:
     """ All commands and usage information in one structure """
 
+    command_category: list[str] = ["Core", "Module", "Alias", "Jobs"]
+
     commands: ClassVar[dict[str, dict[str, str]]] = {
-        "alias": {
+        "Alias": {
             "quit": "Alias of exit command",
             "terminate": "Alias of exit command",
             "done": "Alias of exit command",
             "close": "Alias of exit command",
             "options": 'Alias of "show options" command',
         },
-        "core": {
+        "Core": {
             "help": "Display command descriptions",
             "banner": "Display Terasploit banner",
             "show": "Show content from a context-specific parameter",
@@ -24,16 +26,16 @@ class CommandMetadata:
             "get": "Get a value from a context-specific variable",
             "exit": "Exit the Terasploit console",
         },
-        "module": {
+        "Module": {
             "run": "Execute non-exploit module",
             "exploit": "Execute exploit module",
             "check": "Execute check function of the module",
             "use": "Interact with a module by its path",
             "search": "Search a module path via matching strings",
-            "back": "Exit current module context and return to root",
+            "back": "Exit current module context",
             "info": "Display module information",
         },
-        "jobs": {
+        "Jobs": {
             "list": "List running jobs",
             "kill": "Kill a job by its ID",
             "interact": "Interact with a job by its ID",

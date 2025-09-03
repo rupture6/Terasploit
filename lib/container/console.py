@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # Python library
-from typing import Any, Literal
+from typing import Any
 
 
 class Config:
@@ -9,13 +9,6 @@ class Config:
 
     # Logging configuration
     logging: bool = False
-    log_level: Literal[
-        "DEBUG",
-        "INFO",
-        "WARNING",
-        "ERROR",
-        "CRITICAL"
-    ] = "INFO"
 
     # Verbosity configuration
     verbose: bool = True

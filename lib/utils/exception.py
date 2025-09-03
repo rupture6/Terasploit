@@ -18,7 +18,7 @@ class TerasploitException(Exception):
 
     def __str__(self) -> str:
         return (
-            f"[Error] {self.message}"
+            f"{self.message}"
             f"{(' - ' + self.details) if self.details else ''}"
         )
 

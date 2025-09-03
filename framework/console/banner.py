@@ -11,21 +11,9 @@ from framework.metadata import (
     copyright
 )
 
-ascii_art = """
-┌───────────────────────────────────────────────┐
-│ root@parrot:~# ./exploit target=10.0.0.5      │
-│                                               │
-│ \033[93m[*]\033[0m Connecting to 10.0.0.5:22 ...             │
-│ \033[93m[*]\033[0m Sending payload ...                       │
-│ \033[93m[*]\033[0m Waiting for response ...                  │
-│                                               │
-│ \033[91m!!! ERROR !!!\033[0m                                 │
-│ \033[91mConnection reset by peer (code: 1337)\033[0m         │
-│                                               │
-│ \033[93m[!]\033[0m Exploit failed. Target might be patched.  │
-│                                               │
-│ root@parrot:~# _                              │
-└───────────────────────────────────────────────┘
+description = """
+A general-purpose offensive security framework for developing,
+executing, and managing exploits, payloads, and related modules.
 """
 
 categories = ["auxiliary", "exploit", "encoder", "payload"]
@@ -45,22 +33,27 @@ def display_banner() -> None:
         f"{cat}: {count}" for cat, count in modules.items()
     )
 
+    banner = "\033[33m" + f"Terasploit Framework {version} (CLI)" + "\033[0m"
+
     printf(
-        # Display the ASCII art banner
-        ascii_art,
-        "\n\x1b[33m"
-        f"Terasploit Framework {version} (CLI)"
-        "\x1b[0m\n\n",
+        # New line
+        "\n" +
+
+        # Banner
+        banner + "\n" +
+
+        # Description
+        description + "\n" +
 
         # Display the copyright
-        copyright,
-        "\n",
+        copyright + "\n" +
 
         # Display the GitHub
-        github,
-        "\n\n",
+        github + "\n"*2 +
 
         # Display the module count
-        " "*2, f"{module_count}",
-        "\n\n"
+        f"Modules: ({len(module_list())})" + "\n" +
+
+        # Display the counts of each module category
+        module_count + "\n"*2
     )

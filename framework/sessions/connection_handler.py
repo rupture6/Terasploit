@@ -129,7 +129,6 @@ class ReverseTCPHandler:
                     f"Connection accepted += "
                     f"{client_address[0]}:{client_address[1]}"
                 )
-
                 conn_handler = threading.Thread(
                     target=handle_connection,
                     args=(client_socket, client_address[0], client_address[1]),
@@ -162,9 +161,7 @@ class BindTCPHandler:
         self.client_socket: socket.socket = TCPClient.create_socket(rhost)
         self.set_sock_opts()
 
-        print_status(
-            f"Started bind TCP handler on {rhost}:{lport}"
-        )
+        print_status(f"Started bind TCP handler on {rhost}:{lport}")
 
     def set_sock_opts(self) -> None:
         """ Set socket options to keep the TCP connection alive """

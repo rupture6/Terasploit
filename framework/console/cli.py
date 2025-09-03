@@ -2,6 +2,7 @@
 
 # Python library
 import subprocess
+import time
 import os
 import shlex
 import readline
@@ -28,7 +29,7 @@ from framework.console.command.core import Command
 
 
 class Interpreter(Command):
-    """The main interpreter class."""
+    """ The main interpreter class """
 
     # Activates and deactivates the command line interface
     activate_command_line: bool = False
@@ -49,7 +50,7 @@ class Interpreter(Command):
         # Initialize logging
         Logger.instance = Log(
             logfile="terasploit.log",
-            level=Config.log_level,
+            level="INFO",
             console=Config.logging
         )
 
@@ -70,7 +71,23 @@ class Interpreter(Command):
         Logger.instance.log("Interpreter initialized.")
 
     def exception_message(self, exception: Exception) -> None:
-        """ Display exception message """
+        """ Display exception message
+
+        NOTE: For developers only
+
+        To easily trace back errors, set verbosity to True.
+        It is set to False by default because script kiddies
+        don't know how to code, and they don't care about
+        tracing errors.
+        """
+
+        # Verbosity developer option (edited via sourcecode only)
+        verbosity = False
+
+        # Check if verbosity is False
+        if not verbosity:
+            print_error(exception)
+            return
 
         trace: list[str] = traceback.format_tb(exception.__traceback__)
 
@@ -82,6 +99,9 @@ class Interpreter(Command):
         for line in trace:
             printf(f" ({line_count}) -> {line}")
             line_count += 1
+
+        # Prints the error message
+        print_error(exception)
 
     def prompt(self) -> str:
         """ Creates a command line prompt """
@@ -121,6 +141,8 @@ class Interpreter(Command):
 
     def main(self) -> None:
         """ The command line interface """
+
+        # Displays the console banner before starting the loop
         display_banner()
 
         # The main command loop
@@ -139,13 +161,11 @@ class Interpreter(Command):
                 else:
                     self.shell_exec(command, kwargs=kwargs)
 
+            except KeyboardInterrupt:
+                printf("Interrupt signal... use the command 'exit' to quit.")
+
             except TerasploitException as e:
                 self.exception_message(e)
-                Logger.instance.log(str(e), level="ERROR")
-
-            except Exception as e:
-                self.exception_message(e)
-                Logger.instance.log(str(e), level="ERROR")
 
     def terminate(self, command: str, kwargs: dict[str, Any]) -> None:
         """ Handle the termination of the command line interface """
@@ -172,6 +192,10 @@ class Interpreter(Command):
 
         # Stop the command line interface
         self.activate_command_line = False
+
+        # Print exit
+        _time = time.strftime('%Z %H:%M:%S - %A, %B %e, %Y')
+        print_status(f"Console terminated - {_time}")
 
     def shell_exec(self, command: str, **kwargs: dict[str, Any]) -> None:
         """ Execute a command in the system shell """

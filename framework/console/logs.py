@@ -15,7 +15,7 @@ class Log:
     def __init__(
         self,
         logfile: str = "terasploit.log",
-        level: str | int = Config.log_level,
+        level: str | int = "INFO",
         console: bool = False,
     ) -> None:
         """ Initialize the logger """
@@ -90,7 +90,7 @@ class Log:
     def log(
         self,
         message: str,
-        level: str | int = Config.log_level,
+        level: str | int = "INFO",
     ) -> None:
         """ Log a message if global logging is enabled """
         if not Config.logging:
