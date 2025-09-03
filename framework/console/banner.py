@@ -12,14 +12,20 @@ from framework.metadata import (
 )
 
 ascii_art = """
-  _____              _____       _       _ _
- |_   _|            /  ___|     | |     (_) |
-   | | ___ _ __ __ _\\ `--. _ __ | | ___  _| |_
-   | |/ _ \\ '__/ _` |`--. \\ '_ \\| |/ _ \\| | __|
-   | |  __/ | | (_| /\\__/ / |_) | | (_) | | |_
-   \\_/\\___|_|  \\__,_\\____/| .__/|_|\\___/|_|\\__|
-             Exploitation | | Framework
-                          |_|
+┌───────────────────────────────────────────────┐
+│ root@parrot:~# ./exploit target=10.0.0.5      │
+│                                               │
+│ \033[93m[*]\033[0m Connecting to 10.0.0.5:22 ...             │
+│ \033[93m[*]\033[0m Sending payload ...                       │
+│ \033[93m[*]\033[0m Waiting for response ...                  │
+│                                               │
+│ \033[91m!!! ERROR !!!\033[0m                                 │
+│ \033[91mConnection reset by peer (code: 1337)\033[0m         │
+│                                               │
+│ \033[93m[!]\033[0m Exploit failed. Target might be patched.  │
+│                                               │
+│ root@parrot:~# _                              │
+└───────────────────────────────────────────────┘
 """
 
 categories = ["auxiliary", "exploit", "encoder", "payload"]
@@ -55,6 +61,6 @@ def display_banner() -> None:
         "\n\n",
 
         # Display the module count
-        " "*1, f"{module_count}",
-        "\n"
+        " "*2, f"{module_count}",
+        "\n\n"
     )

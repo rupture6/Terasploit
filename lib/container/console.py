@@ -1,15 +1,21 @@
 # -*- coding: utf-8 -*-
 
 # Python library
-from typing import Any
+from typing import Any, Literal
 
 
-class ConsoleSettings:
-    """ Default configuration for the console """
+class Config:
+    """ Centralized console configuration """
 
     # Logging configuration
-    logging: bool = True
-    log_level: str = "INFO"
+    logging: bool = False
+    log_level: Literal[
+        "DEBUG",
+        "INFO",
+        "WARNING",
+        "ERROR",
+        "CRITICAL"
+    ] = "INFO"
 
     # Verbosity configuration
     verbose: bool = True
@@ -19,6 +25,7 @@ class ConsoleSettings:
     prompt_user: str = "tsf"
 
 
-class LogManager:
-    """ Holds the global logging instance """
+class Logger:
+    """ Global logger instance manager """
+
     instance: Any = None

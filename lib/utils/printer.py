@@ -23,7 +23,7 @@ class ConsolePrinter:
         """ Initialize the printer with given parameters """
 
         # Return if verbose is false
-        if verbose is False:
+        if not verbose:
             return
 
         self.prefix: str = prefix
@@ -44,6 +44,9 @@ class ConsolePrinter:
         end: str = "\n" if not self.end else self.end
 
         # Writes the content of the print
+        if self.prefix:
+            self.file.write(self.prefix + " ")
+
         for i, arg in enumerate(self.args):
             if i:
                 self.file.write(str(sep))

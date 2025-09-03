@@ -6,17 +6,17 @@ from typing import Any
 from logging.handlers import RotatingFileHandler
 
 # Library
-from lib.container.console import ConsoleSettings
+from lib.container.console import Config
 
 
 class Log:
-    """Custom logger with file + optional console output."""
+    """ Custom logger with file + optional console output """
 
     def __init__(
         self,
         logfile: str = "terasploit.log",
-        level: str | int = ConsoleSettings.log_level,
-        console: bool = True,
+        level: str | int = Config.log_level,
+        console: bool = False,
     ) -> None:
         """ Initialize the logger """
 
@@ -90,13 +90,13 @@ class Log:
     def log(
         self,
         message: str,
-        level: str | int = ConsoleSettings.log_level,
+        level: str | int = Config.log_level,
     ) -> None:
         """ Log a message if global logging is enabled """
-        if not ConsoleSettings.logging:
+        if not Config.logging:
             self.disable_all()
             return
-        if ConsoleSettings.logging and not self.console_enabled:
+        if Config.logging and not self.console_enabled:
             self.enable_console()
 
         lvl = self._resolve_level(level)

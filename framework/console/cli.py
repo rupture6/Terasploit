@@ -11,7 +11,7 @@ from typing import Any
 
 # Library
 from lib.container.module import Module
-from lib.container.console import ConsoleSettings, LogManager
+from lib.container.console import Config, Logger
 from lib.utils.exception import TerasploitException, InvalidError
 from lib.utils.printer import (
     print_status,
@@ -47,10 +47,10 @@ class Interpreter(Command):
         """ Initialize the interpreter """
 
         # Initialize logging
-        LogManager.instance = Log(
+        Logger.instance = Log(
             logfile="terasploit.log",
-            level=ConsoleSettings.log_level,
-            console=ConsoleSettings.logging
+            level=Config.log_level,
+            console=Config.logging
         )
 
         # Create history file if it does not exist
@@ -67,7 +67,7 @@ class Interpreter(Command):
         self.activate_command_line = True
 
         # Log interpreter initialization
-        LogManager.instance.log("Interpreter initialized.")
+        Logger.instance.log("Interpreter initialized.")
 
     def exception_message(self, exception: Exception) -> None:
         """ Display exception message """
@@ -89,8 +89,8 @@ class Interpreter(Command):
         # Returns basic prompt if no module is loaded
         if Module.module is None:
             return (
-                f"\001\x1b[4m\002{ConsoleSettings.prompt_user}\001\x1b[0m\002"
-                f" {ConsoleSettings.prompt_symbol} "
+                f"\001\x1b[4m\002{Config.prompt_user}\001\x1b[0m\002"
+                f" {Config.prompt_symbol} "
             )
 
         # Creates a module prompt
@@ -102,9 +102,9 @@ class Interpreter(Command):
 
         # Returns the crafted module prompt
         return (
-            f"\001\x1b[4m\002{ConsoleSettings.prompt_user}\001\x1b[0m\002 "
+            f"\001\x1b[4m\002{Config.prompt_user}\001\x1b[0m\002 "
             f"{folder}(\001\x1b[1m\x1b[31m\002{module_name}\001\x1b[0m\002) "
-            f"{ConsoleSettings.prompt_symbol} "
+            f"{Config.prompt_symbol} "
         )
 
     def parse_line(self, line: str) -> tuple[str, dict[str, str]]:
@@ -120,7 +120,7 @@ class Interpreter(Command):
         }
 
     def main(self) -> None:
-        """ Start the command line interface """
+        """ The command line interface """
         display_banner()
 
         # The main command loop
@@ -141,11 +141,11 @@ class Interpreter(Command):
 
             except TerasploitException as e:
                 self.exception_message(e)
-                LogManager.instance.log(str(e), level="ERROR")
+                Logger.instance.log(str(e), level="ERROR")
 
             except Exception as e:
                 self.exception_message(e)
-                LogManager.instance.log(str(e), level="ERROR")
+                Logger.instance.log(str(e), level="ERROR")
 
     def terminate(self, command: str, kwargs: dict[str, Any]) -> None:
         """ Handle the termination of the command line interface """
@@ -168,7 +168,7 @@ class Interpreter(Command):
             return
 
         # Log the exit
-        LogManager.instance.log("Console terminated")
+        Logger.instance.log("Console terminated")
 
         # Stop the command line interface
         self.activate_command_line = False
