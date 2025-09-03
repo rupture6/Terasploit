@@ -68,28 +68,27 @@ class Interpreter(Command):
         self.activate_command_line = True
 
         # Log interpreter initialization
-        Logger.instance.log("Interpreter initialized.")
+        Logger.instance.log("Interpreter initialized")
 
-    def exception_message(self, exception: Exception) -> None:
-        """ Display exception message
+    def exception_message(self, info: Exception) -> None:
+        """ Display exception message """
 
-        NOTE: For developers only
+        # NOTE: For developers only
 
-        To easily trace back errors, set verbosity to True.
-        It is set to False by default because script kiddies
-        don't know how to code, and they don't care about
-        tracing errors.
-        """
+        # To easily trace back errors, set verbosity to True.
+        # It is set to False by default because script kiddies
+        # don't know how to code, and they don't care about
+        # tracing errors.
 
         # Verbosity developer option (edited via sourcecode only)
         verbosity = False
 
         # Check if verbosity is False
         if not verbosity:
-            print_error(exception)
+            print_error(info)
             return
 
-        trace: list[str] = traceback.format_tb(exception.__traceback__)
+        trace: list[str] = traceback.format_tb(info.__traceback__)
 
         # Prints the full traceback
         print_error("An error occurred...")
@@ -101,7 +100,7 @@ class Interpreter(Command):
             line_count += 1
 
         # Prints the error message
-        print_error(exception)
+        print_error(info)
 
     def prompt(self) -> str:
         """ Creates a command line prompt """
@@ -167,6 +166,9 @@ class Interpreter(Command):
             except TerasploitException as e:
                 self.exception_message(e)
 
+            except Exception as e:
+                self.exception_message(e)
+
     def terminate(self, command: str, kwargs: dict[str, Any]) -> None:
         """ Handle the termination of the command line interface """
 
@@ -195,14 +197,20 @@ class Interpreter(Command):
 
         # Print exit
         _time = time.strftime('%Z %H:%M:%S - %A, %B %e, %Y')
-        print_status(f"Console terminated - {_time}")
+        print_status(f"Console terminated - {_time}.")
 
     def shell_exec(self, command: str, **kwargs: dict[str, Any]) -> None:
         """ Execute a command in the system shell """
+
+        # Unknown command message
+        unknown_command_message = (
+            f"Unknown command: {command}," + " " +
+            "Run the \"help\" command for more details."
+        )
+
+        # Not accepting exec command.
         if command == "exec":
-            print_error(
-                f'Unknown command "{command}", use "help" for more details.'
-            )
+            print_error(unknown_command_message)
             return
 
         # Construct the full command
@@ -223,9 +231,7 @@ class Interpreter(Command):
 
             # Check for errors
             if result.returncode != 0:
-                raise InvalidError(
-                    "An error occurred during shell execution."
-                )
+                raise InvalidError("An error occurred during shell execution.")
 
             # Check for output
             if result.stdout:
@@ -233,9 +239,7 @@ class Interpreter(Command):
                 printf(result.stdout)
 
         except FileNotFoundError:
-            print_error(
-                f'Unknown command "{command}", use "help" for more details.'
-            )
+            print_error(unknown_command_message)
 
         except ValueError as error:
             print_error(f"Exec error: {error}")
