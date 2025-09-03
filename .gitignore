@@ -44,4 +44,4 @@ coverage/
 .venv
 
 # Visual Studio Code
-.vscode
+.vscode/
