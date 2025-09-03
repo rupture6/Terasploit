@@ -132,9 +132,10 @@ class Interpreter(Command):
                 if command in self.terminate_command:
                     self.terminate(command, kwargs)
                     return
-
-                if hasattr(Command, f"command_{command}"):
+                elif hasattr(Command, f"command_{command}"):
                     getattr(Command, f"command_{command}")(self, **kwargs)
+                else:
+                    self.shell_exec(command, kwargs=kwargs)
 
             except TerasploitException as e:
                 self.exception_message(e)
