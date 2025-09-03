@@ -5,7 +5,7 @@
 
 
 class TerasploitException(Exception):
-    """Base exception for the project."""
+    """ Base exception for the project """
 
     def __init__(
         self,
@@ -24,12 +24,12 @@ class TerasploitException(Exception):
 
 
 class ValidationError(TerasploitException):
-    """Raised when validation fails."""
+    """ Raised when validation fails """
 
 
 class InvalidError(TerasploitException):
-    """Raised when an object is invalid."""
+    """ Raised when an object is invalid """
 
 
 class NotFoundError(TerasploitException):
-    """Raised when a requested resource is not found."""
+    """ Raised when a requested resource is not found """

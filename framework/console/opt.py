@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 
-# Python lib
+# Python library
 from dataclasses import dataclass, field
 from typing import Any, Callable
 
-# Lib
+# Library
 from lib.utils.validator import Validate
 
 
 @dataclass
 class Option:
-    """Base class for encapsulating option metadata."""
+    """ Base class for encapsulating option metadata """
 
     name: str
     required: str
@@ -21,7 +21,7 @@ class Option:
 
 @dataclass
 class Boolean(Option):
-    """Boolean option encapsulation."""
+    """ Boolean option encapsulation """
 
     def __init__(
         self,
@@ -37,7 +37,7 @@ class Boolean(Option):
 
 @dataclass
 class Int(Option):
-    """Integer option encapsulation."""
+    """ Integer option encapsulation """
 
     def __init__(
         self,
@@ -53,7 +53,7 @@ class Int(Option):
 
 @dataclass
 class Float(Option):
-    """Float option encapsulation."""
+    """ Float option encapsulation """
 
     def __init__(
         self,

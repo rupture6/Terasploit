@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-# Python lib
+# Python library
 import socket
 import threading
 import time
 import select
 
-# Lib
+# Library
 from lib.container.module import Module
 from lib.utils.printer import print_status, print_error
 from lib.socks.check_host import is_ipv4, is_ipv6
@@ -21,7 +21,7 @@ def handle_connection(
     client_address: str,
     port: int
 ) -> None:
-    """Handle client connection lifecycle."""
+    """ Handle client connection lifecycle """
     try:
         while not Session.alive.is_set():
             if client_socket.fileno() == -1:
@@ -74,7 +74,7 @@ def handle_connection(
 
 
 class ReverseTCPHandler:
-    """Reverse TCP exploit handler."""
+    """ Reverse TCP exploit handler """
 
     def __init__(self, host: str, port: int) -> None:
         self.host: str = host
@@ -86,7 +86,7 @@ class ReverseTCPHandler:
         )
 
     def get_socket(self) -> socket.socket:
-        """Create a socket object based on the host."""
+        """ Create a socket object based on the host """
         sock: socket.socket | None = None
 
         if is_ipv4(self.host):
@@ -101,7 +101,7 @@ class ReverseTCPHandler:
         return sock
 
     def start_handler(self) -> None:
-        """Bind and listen for client connections."""
+        """ Bind and listen for client connections """
         try:
             Session.server_socket.bind((self.host, self.port))
         except OSError as err:
@@ -154,7 +154,7 @@ class ReverseTCPHandler:
 
 
 class BindTCPHandler:
-    """Bind TCP exploit handler."""
+    """ Bind TCP exploit handler """
 
     def __init__(self, rhost: str, lport: int) -> None:
         self.rhost: str = rhost
@@ -167,7 +167,7 @@ class BindTCPHandler:
         )
 
     def set_sock_opts(self) -> None:
-        """Set socket options to keep the TCP connection alive."""
+        """ Set socket options to keep the TCP connection alive """
         self.client_socket.setsockopt(
             socket.SOL_SOCKET,
             socket.SO_KEEPALIVE,
@@ -190,7 +190,7 @@ class BindTCPHandler:
         )
 
     def start_handler(self) -> None:
-        """Connect to the server and manage the session."""
+        """ Connect to the server and manage the session """
         print_status(f"Connecting to {self.rhost}:{self.lport}...")
         while not Session.active_connector.is_set():
 

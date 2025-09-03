@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-# Python lib
+# Python library
 from typing import Any
 from dataclasses import dataclass, field
 
-# Lib
+# Library
 from lib.utils.validator import Validate
 
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Python lib
+# Python library
 import threading
 from typing import Any, Optional
 
@@ -27,28 +27,28 @@ class Session:
 
     @classmethod
     def reset_events(cls) -> None:
-        """Reset all threading events."""
+        """ Reset all threading events """
         cls.active_listener.clear()
         cls.active_connector.clear()
         cls.alive.clear()
 
     @classmethod
     def reverse_tcp_reset(cls) -> None:
-        """Reset state when a reverse TCP handler stops."""
+        """ Reset state when a reverse TCP handler stops """
         cls.active_listener.clear()
         cls.alive.clear()
         cls._reset_core()
 
     @classmethod
     def bind_tcp_reset(cls) -> None:
-        """Reset state when a bind TCP handler stops."""
+        """ Reset state when a bind TCP handler stops """
         cls.active_connector.clear()
         cls.alive.clear()
         cls._reset_core(reset_socket=False)
 
     @classmethod
     def _reset_core(cls, reset_socket: bool = True) -> None:
-        """Reset common attributes."""
+        """ Reset common attributes """
         cls.handler_thread = None
         if reset_socket:
             cls.server_socket = None

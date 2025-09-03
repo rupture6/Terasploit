@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 
-# Python lib
+# Python library
 import socket
 
-# Lib
+# Library
 from lib.socks.check_host import is_ipv4, is_ipv6
 
 
 class UDPClient:
-    """UDP socket client for establishing and managing a UDP connection."""
+    """ UDP socket client for establishing and managing a UDP connection """
 
     @staticmethod
     def create_socket(host: str) -> socket.socket:
@@ -24,7 +24,6 @@ class UDPClient:
 
     @staticmethod
     def connect(sock: socket.socket, host: str, port: int) -> socket.socket:
-        """ Connect to the server.
-        """
+        """ Connect to the server """
         sock.connect((host, port))
         return sock

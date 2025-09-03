@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Python lib
+# Python library
 import json
 import os
 from enum import Enum
@@ -18,14 +18,14 @@ with open(
 
 
 class Extension(str, Enum):
-    """Supported file extensions."""
+    """ Supported file extensions """
     PHP = ".php"
     PYTHON = ".py"
     PERL = ".pl"
 
 
 class Arch(str, Enum):
-    """Supported architectures."""
+    """ Supported architectures """
     MULTI = "multi"
     PYTHON = "python"
     PERL = "perl"
@@ -36,7 +36,7 @@ class Arch(str, Enum):
 
 
 class Platform(str, Enum):
-    """Supported platforms."""
+    """ Supported platforms """
     MULTI = "multi"
     WINDOWS = "windows"
     PYTHON = "python"
@@ -49,13 +49,13 @@ class Platform(str, Enum):
 
 
 class PayloadHandler(str, Enum):
-    """Supported payload handlers."""
+    """ Supported payload handlers """
     REVERSE_TCP = "reverse_tcp"
     BIND_TCP = "bind_tcp"
 
 
 class Module(str, Enum):
-    """Supported module types."""
+    """ Supported module types """
     AUXILIARY = "auxiliary"
     ENCODER = "encoder"
     EXPLOIT = "exploit"

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-# Python lib
+# Python library
 import re
 from typing import Any
 from pathlib import Path
 
-# Lib
+# Library
 from lib.utils.printer import printf
 
 # Precompiled Regex Patterns
@@ -64,33 +64,33 @@ IPV6_REGEX = re.compile(
 
 
 class Validate:
-    """Validates module options."""
+    """ Validates module options """
 
     @staticmethod
     def url(value: str) -> bool:
-        """Validate a URL/URI string."""
+        """ Validate a URL/URI string """
         return bool(URL_REGEX.fullmatch(value))
 
     @staticmethod
     def ipaddress(value: str) -> bool:
-        """Validate IPv4 or IPv6 address."""
+        """ Validate IPv4 or IPv6 address """
         return bool(IPV4_REGEX.fullmatch(value) or IPV6_REGEX.fullmatch(value))
 
     @staticmethod
     def host(value: str) -> bool:
-        """Validate host (IP address or URL)."""
+        """ Validate host (IP address or URL) """
         return Validate.ipaddress(value) or Validate.url(value)
 
     @staticmethod
     def int_object(value: Any) -> bool:
-        """Check if value can be interpreted as int."""
+        """ Check if value can be interpreted as int """
         if isinstance(value, int):
             return True
         return isinstance(value, str) and value.isdigit()
 
     @staticmethod
     def float_object(value: Any) -> bool:
-        """Check if value can be interpreted as float."""
+        """ Check if value can be interpreted as float """
         try:
             float(value)
             return True
@@ -99,17 +99,17 @@ class Validate:
 
     @staticmethod
     def int_float_object(value: Any) -> bool:
-        """Check if value is int or float-like."""
+        """ Check if value is int or float-like """
         return Validate.int_object(value) or Validate.float_object(value)
 
     @staticmethod
     def string_object(value: Any) -> bool:
-        """Check if value is a string."""
+        """ Check if value is a string """
         return isinstance(value, str)
 
     @staticmethod
     def boolean(value: Any) -> bool:
-        """Check if value is a boolean or 'true'/'false' string."""
+        """ Check if value is a boolean or 'true'/'false' string """
         if isinstance(value, bool):
             return True
         if isinstance(value, str):
@@ -118,7 +118,7 @@ class Validate:
 
     @staticmethod
     def port(value: Any) -> bool:
-        """Validate TCP/UDP port number (1–65535)."""
+        """ Validate TCP/UDP port number (1-65535) """
         if isinstance(value, int):
             return 1 <= value <= 65535
         if isinstance(value, str) and value.isdigit():
@@ -127,7 +127,7 @@ class Validate:
 
     @staticmethod
     def file_exists(file_path: str) -> bool:
-        """Check if a file exists."""
+        """ Check if a file exists """
         try:
             return Path(file_path).is_file()
         except OSError as err:

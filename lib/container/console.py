@@ -1,28 +1,24 @@
 # -*- coding: utf-8 -*-
 
-# Python lib
+# Python library
 from typing import Any
 
-# The default console settings are stored here and
-# can only be modified by editing the source code.
 
+class ConsoleSettings:
+    """ Default configuration for the console """
 
-class Setting:
-    """Stores the console's default settings."""
-
-    # Console logging settings.
+    # Logging configuration
     logging: bool = True
     log_level: str = "INFO"
 
-    # Console verbosity setting.
+    # Verbosity configuration
     verbose: bool = True
 
-    # Prompt character setting.
-    prompt_char: str = ">"
+    # Prompt configuration
+    prompt_symbol: str = ">"
     prompt_user: str = "tsf"
 
 
-# Logging instance
-class Logging:
-    """Stores the logging instance."""
+class LogManager:
+    """ Holds the global logging instance """
     instance: Any = None

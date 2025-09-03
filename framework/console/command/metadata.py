@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-# Python lib
+# Python library
 from typing import ClassVar
 
 
 class CommandMetadata:
-    """All commands and usage information in one structure."""
+    """ All commands and usage information in one structure """
 
     commands: ClassVar[dict[str, dict[str, str]]] = {
         "alias": {

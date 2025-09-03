@@ -3,18 +3,23 @@
 
 # Terasploit Framework - A modular penetration testing framework.
 
-# Python lib
+# Python library
 import sys
-
-if sys.argv[1:]:
-    print(sys.argv[1:])
-    raise SystemExit(0)
-
-# Starts command line interface if no argv is specified.
 
 # Framework
 from framework.console.cli import Interpreter
 
-# Starts the console CLI
-console_cli = Interpreter()
-console_cli.main()
+
+def main() -> None:
+    """Main entry point for the Terasploit Framework."""
+    if sys.argv[1:]:
+        print(sys.argv[1:])
+        return
+
+    # Starts command line interface if no argv is specified.
+    console_cli = Interpreter()
+    console_cli.main()
+
+
+if __name__ == "__main__":
+    main()

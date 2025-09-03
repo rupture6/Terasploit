@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Lib
+# Library
 from lib.utils.printer import printf
 from lib.utils.path import module_list
 
@@ -32,7 +32,7 @@ for module in module_list():
 
 
 def display_banner() -> None:
-    """Display the banner of the Terasploit framework."""
+    """ Display the banner of the Terasploit framework """
 
     # Create the module count string
     module_count = ", ".join(

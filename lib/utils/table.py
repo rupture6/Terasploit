@@ -1,29 +1,29 @@
 # -*- coding: utf-8 -*-
 """Terasploit UI Tables."""
 
-# Python lib
+# Python library
 from typing import Sequence
 from textwrap import wrap
 
 # Framework
 from framework.modules.metadata import metadata_
 
-# Lib
+# Library
 from lib.utils.printer import printf, print_error
 
 
 def underline(text: str) -> str:
-    """Return dashes matching the length of `text`."""
+    """ Return dashes matching the length of `text` """
     return "-" * len(text)
 
 
 def highlight(text: str, term: str, color: str = "\x1b[1;31m") -> str:
-    """Return `text` with `term` highlighted using ANSI colors."""
+    """ Return `text` with `term` highlighted using ANSI colors """
     return text.replace(term, f"{color}{term}\x1b[0m") if term else text
 
 
 def wrap_text(text: str, width: int) -> list[str]:
-    """Wrap text to a list of lines with given width."""
+    """ Wrap text to a list of lines with given width """
     return wrap(text, width=width) or [""]
 
 
@@ -31,7 +31,7 @@ def print_module_path_table(
     path: Sequence[str],
     highlight_term: str = ""
 ) -> None:
-    """Print a table of module paths and descriptions."""
+    """ Print a table of module paths and descriptions """
 
     # Check if path is empty
     if not path:
@@ -100,7 +100,7 @@ def print_basic_table(
     col2_header: str = "Description",
     highlight_term: str = "",
 ) -> None:
-    """Print a two-column table with headers and wrapping."""
+    """ Print a two-column table with headers and wrapping """
     col1_w = col1_width or len(max(col1, key=len)) + pad
     col2_w = 60
 
@@ -132,7 +132,7 @@ def print_options_table(
     required: Sequence[str],
     descriptions: Sequence[str],
 ) -> None:
-    """Print a four-column table for module options with wrapping."""
+    """ Print a four-column table for module options with wrapping """
     currents = [" " if c is None else str(c) for c in currents]
 
     name_w = max(len(max(names, key=len)) + 2, 7)

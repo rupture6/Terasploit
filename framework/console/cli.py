@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Python lib
+# Python library
 import subprocess
 import os
 import shlex
@@ -9,9 +9,9 @@ import atexit
 import traceback
 from typing import Any
 
-# Lib
+# Library
 from lib.container.module import Module
-from lib.container.console import Setting, Logging
+from lib.container.console import ConsoleSettings, LogManager
 from lib.utils.exception import TerasploitException, InvalidError
 from lib.utils.printer import (
     print_status,
@@ -44,13 +44,13 @@ class Interpreter:
     terminate_command = ["exit", "quit", "done", "close", "terminate"]
 
     def __init__(self) -> None:
-        """Initialize the interpreter."""
+        """ Initialize the interpreter """
 
         # Initialize logging
-        Logging.instance = Log(
+        LogManager.instance = Log(
             logfile="terasploit.log",
-            level=Setting.log_level,
-            console=Setting.logging
+            level=ConsoleSettings.log_level,
+            console=ConsoleSettings.logging
         )
 
         # Create history file if it does not exist
@@ -67,10 +67,10 @@ class Interpreter:
         self.activate_command_line = True
 
         # Log interpreter initialization
-        Logging.instance.log("Interpreter initialized.")
+        LogManager.instance.log("Interpreter initialized.")
 
     def exception_message(self, exception: Exception) -> None:
-        """Display exception message."""
+        """ Display exception message """
 
         trace: list[str] = traceback.format_tb(exception.__traceback__)
 
@@ -84,13 +84,13 @@ class Interpreter:
             line_count += 1
 
     def prompt(self) -> str:
-        """Creates a command line prompt."""
+        """ Creates a command line prompt """
 
         # Returns basic prompt if no module is loaded
         if Module.module is None:
             return (
-                f"\001\x1b[4m\002{Setting.prompt_user}\001\x1b[0m\002"
-                f" {Setting.prompt_char} "
+                f"\001\x1b[4m\002{ConsoleSettings.prompt_user}\001\x1b[0m\002"
+                f" {ConsoleSettings.prompt_symbol} "
             )
 
         # Creates a module prompt
@@ -102,13 +102,13 @@ class Interpreter:
 
         # Returns the crafted module prompt
         return (
-            f"\001\x1b[4m\002{Setting.prompt_user}\001\x1b[0m\002 "
+            f"\001\x1b[4m\002{ConsoleSettings.prompt_user}\001\x1b[0m\002 "
             f"{folder}(\001\x1b[1m\x1b[31m\002{module_name}\001\x1b[0m\002) "
-            f"{Setting.prompt_char} "
+            f"{ConsoleSettings.prompt_symbol} "
         )
 
     def parse_line(self, line: str) -> tuple[str, dict[str, str]]:
-        """Parse a command line into a command and its arguments."""
+        """ Parse a command line into a command and its arguments """
         if not line:
             return "", {}
 
@@ -120,7 +120,7 @@ class Interpreter:
         }
 
     def main(self) -> None:
-        """Start the command line interface."""
+        """ Start the command line interface """
         display_banner()
 
         # The main command loop
@@ -138,14 +138,14 @@ class Interpreter:
 
             except TerasploitException as e:
                 self.exception_message(e)
-                Logging.instance.log(str(e), level="ERROR")
+                LogManager.instance.log(str(e), level="ERROR")
 
             except Exception as e:
                 self.exception_message(e)
-                Logging.instance.log(str(e), level="ERROR")
+                LogManager.instance.log(str(e), level="ERROR")
 
     def terminate(self, command: str, kwargs: dict[str, Any]) -> None:
-        """Handle the termination of the command line interface."""
+        """ Handle the termination of the command line interface """
 
         # Check for invalid arguments
         if kwargs:
@@ -165,13 +165,13 @@ class Interpreter:
             return
 
         # Log the exit
-        Logging.instance.log("Console terminated")
+        LogManager.instance.log("Console terminated")
 
         # Stop the command line interface
         self.activate_command_line = False
 
     def shell_exec(self, command: str, **kwargs: dict[str, Any]) -> None:
-        """Execute a command in the system shell."""
+        """ Execute a command in the system shell """
         if command == "exec":
             print_error(
                 f'Unknown command "{command}", use "help" for more details.'

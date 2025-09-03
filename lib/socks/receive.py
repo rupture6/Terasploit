@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
-"""Socket receiver utilities."""
 
-# Python lib
+# Python library
 import socket
 import select
 
-# Lib
+# Library
 from lib.utils.printer import print_error
 
 # Framework
@@ -17,7 +16,7 @@ def socket_receive(
     buffer_size: int = 4096,
     timeout: int = 1
 ) -> bytes:
-    """Receive data from a socket until it is closed or a timeout occurs."""
+    """ Receive data from a socket until it is closed or a timeout occurs """
     received_data = b""
 
     while True:
@@ -44,7 +43,7 @@ def receive_fixed_size_data(
     buffer_size: int = 4096,
     timeout: int = 1
 ) -> bytes:
-    """Receive a fixed amount of data from a socket until it is closed."""
+    """ Receive a fixed amount of data from a socket until it is closed """
     received_data = b""
 
     while len(received_data) < expected_size:
