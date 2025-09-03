@@ -21,6 +21,17 @@ from framework.console.banner import display_banner
 class Command:
     """ Base class for all commands """
 
+    def display_module(self, attr: Any) -> None:
+        """ Show exploit options """
+        if attr == "all":
+            printf("\nShow: all modules\n")
+            modules = module_list()
+            print_module_path_table(modules)
+        else:
+            printf(f"\nShow: {attr}\n")
+            modules = search_modules(attr)
+            print_module_path_table(modules, highlight_term=attr)
+
     @module_required
     @enforce_kwarg_count(0)
     def command_back(self):
@@ -79,14 +90,3 @@ class Command:
 
         printf(f"\nSearch: {module_name}\n")
         print_module_path_table(modules, highlight_term=module_name)
-
-    def display_module(self, attr: Any) -> None:
-        """ Show exploit options """
-        if attr == "all":
-            printf("\nShow: all modules\n")
-            modules = module_list()
-            print_module_path_table(modules)
-        else:
-            printf(f"\nShow: {attr}\n")
-            modules = search_modules(attr)
-            print_module_path_table(modules, highlight_term=attr)

@@ -27,7 +27,7 @@ from framework.sessions.thread_handler import Session
 from framework.console.command.core import Command
 
 
-class Interpreter:
+class Interpreter(Command):
     """The main interpreter class."""
 
     # Activates and deactivates the command line interface
@@ -134,7 +134,7 @@ class Interpreter:
                     return
 
                 if hasattr(Command, f"command_{command}"):
-                    getattr(Command, f"command_{command}")(self, **kwargs)()
+                    getattr(Command, f"command_{command}")(self, **kwargs)
 
             except TerasploitException as e:
                 self.exception_message(e)
