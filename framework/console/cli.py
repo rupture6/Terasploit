@@ -127,6 +127,8 @@ class Interpreter(Command):
         while self.activate_command_line is True:
             try:
                 command, kwargs = self.parse_line(input(self.prompt()))
+                if not command:
+                    continue
 
                 # Check for termination commands
                 if command in self.terminate_command:
@@ -180,8 +182,8 @@ class Interpreter(Command):
             return
 
         # Construct the full command
-        if kwargs:
-            arguments = [str(value) for value in kwargs.values()]
+        if kwargs["kwargs"]:
+            arguments = [value[1] for value in kwargs["kwargs"].items()]
             full_command = " ".join([command] + arguments)
         else:
             full_command = command
