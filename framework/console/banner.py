@@ -35,6 +35,7 @@ def display_banner() -> None:
 
     banner = "\033[33m" + f"Terasploit Framework {version} (CLI)" + "\033[0m"
 
+    # Prints everything all at once
     printf(
         # New line
         "\n" +

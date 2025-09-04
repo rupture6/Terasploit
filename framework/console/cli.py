@@ -112,14 +112,23 @@ class Interpreter(Command):
                 f" {Config.prompt_symbol} "
             )
 
-        # Creates a module prompt
-        module_name: str = Module.module.info["Name"]
+        # Checks if the module info exist
+        try:
+            module_name: str = Module.module.info["Name"]
+        except AttributeError:
+            # Replace module name with path if info is missing
+            if Module.module_path.startswith("modules"):
+                module_name = "/".join(Module.module_path.split("/")[2:])
+            else:
+                module_name = "/".join(Module.module_path.split("/")[1:])
+
+        # Get the module category straight from the module path
         if Module.module_path.startswith("modules"):
             folder: str = Module.module_path.split("/")[1]
         else:
             folder: str = Module.module_path.split("/")[0]
 
-        # Returns the crafted module prompt
+        # Return the crafted module prompt
         return (
             f"\001\x1b[4m\002{Config.prompt_user}\001\x1b[0m\002 "
             f"{folder}(\001\x1b[1m\x1b[31m\002{module_name}\001\x1b[0m\002) "
@@ -208,7 +217,7 @@ class Interpreter(Command):
             "Run the \"help\" command for more details."
         )
 
-        # Not accepting exec command.
+        # Not accepting exec command
         if command == "exec":
             print_error(unknown_command_message)
             return
