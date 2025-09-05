@@ -3,8 +3,14 @@
         "exploit/multi/handler": {
             "Name": "Generic Payload Handler",
             "Description": "Handles payloads that have happened outside of Framework",
-            "CVE" : "N/A",
-            "Disclosure" : "N/A"
+            "CVE": "N/A",
+            "Disclosure": "N/A"
+        },
+        "exploit/windows/http/xampp_webdav_upload_php": {
+            "Name": "XAMPP WebDav Upload PHP",
+            "Description": "Upload Shell via Using Supplied Credentials",
+            "CVE": "N/A",
+            "Disclosure": "N/A"
         }
     },
     "payload": {
