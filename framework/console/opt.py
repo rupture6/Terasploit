@@ -1,67 +1,52 @@
 # -*- coding: utf-8 -*-
 
 # Python library
-from dataclasses import dataclass, field
-from typing import Any, Callable
+from dataclasses import dataclass
+from typing import Any
 
 # Library
 from lib.utils.validator import Validate
 
 
-@dataclass
+@dataclass(init=True)
 class Option:
-    """ Base class for encapsulating option metadata """
+    """ Base option encapsulation """
 
     name: str
     required: str
     description: str
     default: Any
-    validator: Callable[[Any], bool] = field(repr=False)
+    validator: Any = None
 
 
-@dataclass
-class Boolean(Option):
+@dataclass(init=True)
+class Boolean:
     """ Boolean option encapsulation """
 
-    def __init__(
-        self,
-        name: str,
-        required: str,
-        description: str,
-        default: Any
-    ) -> None:
-        super().__init__(
-            name, required, description, default, Validate.boolean
-        )
+    name: str
+    required: str
+    description: str
+    default: Any
+    validator = Validate.boolean
 
 
-@dataclass
-class Int(Option):
-    """ Integer option encapsulation """
+@dataclass(init=True)
+class Int:
+    """ Int option encapsulation """
 
-    def __init__(
-        self,
-        name: str,
-        required: str,
-        description: str,
-        default: Any
-    ) -> None:
-        super().__init__(
-            name, required, description, default, Validate.int_object
-        )
+    name: str
+    required: str
+    description: str
+    default: Any
+    validator = Validate.int_object
 
 
-@dataclass
-class Float(Option):
+@dataclass(init=True)
+class Float:
     """ Float option encapsulation """
 
-    def __init__(
-        self,
-        name: str,
-        required: str,
-        description: str,
-        default: Any
-    ) -> None:
-        super().__init__(
-            name, required, description, default, Validate.float_object
-        )
+    name: str
+    required: str
+    description: str
+    default: Any
+    validator = Validate.float_object

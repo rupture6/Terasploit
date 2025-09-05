@@ -26,7 +26,7 @@ class Opt:
         "RHOST": None,
         "RPORT": 80,
         "PROXY": None,
-        "SSL_VERIFY": False,
+        "SSL": False,
         "RANDOM_AGENT": False,
         "VERBOSE": False,
         "LHOST": None,
