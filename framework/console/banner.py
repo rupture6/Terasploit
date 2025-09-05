@@ -37,9 +37,6 @@ def display_banner() -> None:
 
     # Prints everything all at once
     printf(
-        # New line
-        "\n" +
-
         # Banner
         banner + "\n" +
 

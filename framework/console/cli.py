@@ -24,7 +24,7 @@ from lib.utils.printer import (
 # Framework
 from framework.console.banner import display_banner
 from framework.console.logs import Log
-from framework.sessions.thread_handler import Session
+from framework.sessions.core.thread_handler import Session
 from framework.console.command.core import Command
 
 

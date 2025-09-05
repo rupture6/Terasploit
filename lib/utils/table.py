@@ -127,45 +127,55 @@ def print_basic_table(
 
 
 def print_options_table(
-    names: Sequence[str],
-    currents: Sequence[str | None],
-    required: Sequence[str],
-    descriptions: Sequence[str],
+    names: list[str],
+    values: list[str],
+    required: list[str],
+    descriptions: list[str],
 ) -> None:
-    """ Print a four-column table for module options with wrapping """
-    currents = [" " if c is None else str(c) for c in currents]
+    """ Print a four-column table for module options """
 
-    name_w = max(len(max(names, key=len)) + 2, 7)
-    curr_w = max(len(max(currents, key=len)) + 1, 18)
-    req_w = 10
-    desc_w = 50
+    # Normalize values (replace None with empty string)
+    current_settings: list[str] = [
+        "" if str(setting) == str(None) else str(setting)
+        for setting in values
+    ]
 
+    # Prepare headers and corresponding columns
     headers = ["Name", "Current Settings", "Required", "Description"]
-    widths = [name_w, curr_w, req_w, desc_w]
+    columns = [names, current_settings, required, descriptions]
 
-    # Header
-    printf(
-        "   "
-        "".join(h.ljust(w) for h, w in zip(headers, widths))
-    )
-    printf(
-        "   "
-        "".join(underline(h).ljust(w) for h, w in zip(headers, widths))
-    )
+    # Calculate dynamic column widths
+    col_width = [
+        max(len(str(item)) for item in col + [header]) + 2
+        for header, col in zip(headers, columns)
+    ]
 
-    # Rows
-    for n, c, r, d in zip(names, currents, required, descriptions):
-        for i, line in enumerate(wrap_text(d, desc_w)):
-            if i == 0:
-                printf(
-                    "   "
-                    f"{n.upper().ljust(name_w)}"
-                    f"{c.ljust(curr_w)}"
-                    f"{r.ljust(req_w)}"
-                    f"{line}"
-                )
-            else:
-                printf("   " + " " * (name_w + curr_w + req_w) + line)
+    # Build and print header row
+    header = "   "
+    header += f"{'Name'.ljust(col_width[0])}"
+    header += f"{'Current Settings'.ljust(col_width[1])}"
+    header += f"{'Required'.ljust(col_width[2])}"
+    header += f"{'Description'.ljust(col_width[3])}"
+    printf(header)
 
-    # Footer
+    # Build and print header underline
+    underline = "   "
+    underline += f"{'-' * 4}".ljust(col_width[0])
+    underline += f"{'-' * len('Current Settings')}".ljust(col_width[1])
+    underline += f"{'-' * len('Required')}".ljust(col_width[2])
+    underline += f"{'-' * len('Description')}".ljust(col_width[3])
+    printf(underline)
+
+    # Print each row in the options table
+    for name, current, require, description in zip(
+        names, current_settings, required, descriptions
+    ):
+        row = "   "
+        row += f"{name.upper().ljust(col_width[0])}"
+        row += f"{current.ljust(col_width[1])}"
+        row += f"{require.ljust(col_width[2])}"
+        row += description
+        printf(row)
+
+    # Print trailing newline / suffix
     printf()

@@ -13,7 +13,7 @@ from lib.socks.check_host import is_ipv4, is_ipv6
 
 # Framework
 from framework.client.tcp.tcp_client import TCPClient
-from framework.sessions.thread_handler import Session
+from framework.sessions.core.thread_handler import Session
 
 
 def handle_connection(

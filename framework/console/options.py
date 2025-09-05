@@ -72,7 +72,7 @@ class Opt:
     # Default description, this variable remains unchanged.
     default_description = description.copy()
 
-    validator: dict[str, object] = {
+    validator: dict[str, Any] = {
         "URL": Validate.url,
         "RHOST": Validate.host,
         "RPORT": Validate.port,
@@ -112,20 +112,18 @@ class Opt:
 
     @classmethod
     def clear_mode(cls):
-        """ Clears the auxiliary mode.
-        """
+        """ Clears the auxiliary mode """
         cls.auxiliary_mode.clear()
 
     @classmethod
     def clear_target(cls):
-        """ Clear the exploit target.
-        """
+        """ Clear the exploit target """
         cls.exploit_target.clear()
 
     @classmethod
     def reset_to_default(cls):
-        """ Reset all options to their default values.
-        """
+        """ Reset all options to their default values """
+
         # Reset all options to their default values
         for opt_list in [
             cls.registered_module_options,
