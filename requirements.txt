@@ -1,0 +1,5 @@
+phonenumbers
+pycountry
+beautifulsoup4
+requests
+urllib3
