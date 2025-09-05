@@ -635,6 +635,59 @@ class Command(Utils):
         # Otherwise raise error
         raise InvalidError("Current module doesn't have a check method.")
 
+    @module_required
+    def command_info(self) -> None:
+        """Display module metadata """
+
+        def display_info(key: str, value: str | list[str]):
+            """ Display the information given """
+
+            # If the metadata value is a list
+            if isinstance(value, list):
+                printf(" "*2, f"{key}:")
+
+                # Prints the contents
+                for content in value:
+                    if key.lower() == "description":
+                        printf(" "*4, f"{content}")
+                    else:
+                        printf(" "*4, f"-> {content}")
+
+                # Add an extra line for readability after a block of list items
+                printf()
+
+            # If the metadata value is a single string or scalar
+            else:
+                printf(" "*2, f"{key[:15].ljust(15)} : {value}")
+
+        # Iterate through all metadata items of the currently loaded module
+        printf()
+        printf("Module information")
+        printf("==================")
+        printf()
+        for key, value in Module.module.info.items():
+            display_info(key, value)
+
+        # Display payload information if there is currently loaded
+        if Module.payload:
+            printf("\n")
+            printf("Payload Information")
+            printf("===================")
+            printf()
+            for key, value in Module.payload.info.items():
+                display_info(key, value)
+
+        # Display encoder information if there is currently loaded
+        if Module.encoder:
+            printf("Encoder Information")
+            printf("===================")
+            printf()
+            for key, value in Module.encoder.info.items():
+                display_info(key, value)
+
+        # Prints newline
+        printf()
+
     # --- Jobs Command Category ---
 
     @enforce_kwarg_count(0)
