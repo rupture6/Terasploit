@@ -16,7 +16,6 @@ from framework.modules.metadata import (
 
 
 class TerasploitModule:
-    """ This is a Terasploit Module """
 
     def __init__(self):
         super().__setattr__(
