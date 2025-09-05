@@ -8,6 +8,9 @@ from logging.handlers import RotatingFileHandler
 # Library
 from lib.container.console import Config
 
+# NOTE: Console logging is not yet implemented in some parts
+# the framework.
+
 
 class Log:
     """ Custom logger with file + optional console output """

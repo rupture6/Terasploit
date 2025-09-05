@@ -10,7 +10,7 @@ from typing import Any
 from lib.container.console import Config
 from lib.container.module import Module
 
-# Multiple Imports from Library
+# Library multiple imports
 from lib.utils.printer import (
     printf,
     print_status,
@@ -44,7 +44,7 @@ from framework.console.command.metadata import CommandMetadata
 from framework.exploit.driver import ExploitDriver
 from framework.sessions.core.thread_handler import Session
 
-# Multiple Imports from Framework
+# Framework multiple imports
 from framework.console.options import (
     Opt,
     OptGet

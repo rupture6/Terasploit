@@ -163,7 +163,7 @@ class Interpreter(Command):
                 # Check for termination commands
                 if command in self.terminate_command:
                     self.terminate(command, kwargs)
-                    return
+
                 elif hasattr(Command, f"command_{command}"):
                     getattr(Command, f"command_{command}")(self, **kwargs)
                 else:
@@ -198,15 +198,18 @@ class Interpreter(Command):
                 )
             return
 
-        # Log the exit
-        Logger.instance.log("Console terminated")
+        # Exit if there is no sessions alive
+        if not Session.sessions:
 
-        # Stop the command line interface
-        self.activate_command_line = False
+            # Log the exit
+            Logger.instance.log("Console terminated")
 
-        # Print exit
-        _time = time.strftime('%Z %H:%M:%S - %A, %B %e, %Y')
-        print_status(f"Console terminated - {_time}.")
+            # Stop the command line interface
+            self.activate_command_line = False
+
+            # Print exit
+            _time = time.strftime('%Z %H:%M:%S - %A, %B %e, %Y')
+            print_status(f"Console terminated - {_time}.")
 
     def shell_exec(self, command: str, **kwargs: dict[str, Any]) -> None:
         """ Execute a command in the system shell """

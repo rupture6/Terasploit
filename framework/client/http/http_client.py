@@ -2,11 +2,16 @@
 
 # Python3
 import requests
+import urllib3
 from typing import Any
 
 # Library
 from lib.utils.exception import InvalidError
 
+# Disable insecure request warning because it doesn't help at all
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+# List of http methods
 http_methods = [
     "get",
     "post",
@@ -19,6 +24,7 @@ http_methods = [
 
 
 class HTTP:
+    """ HTTP session """
 
     session = requests.Session()
 
@@ -45,6 +51,7 @@ def _format_request_content(kwargs: dict[str, Any]) -> dict[str, Any]:
         except ValueError:
             request_content[key] = value
 
+    # Return the formatted request content
     return request_content
 
 
