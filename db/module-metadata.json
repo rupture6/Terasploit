@@ -1,0 +1,32 @@
+{
+    "exploit": {
+        "exploit/multi/handler": {
+            "Name": "Generic Payload Handler",
+            "Description": "Handles payloads that have happened outside of Framework",
+            "CVE": "N/A",
+            "Disclosure": "N/A"
+        },
+        "exploit/windows/http/xampp_webdav_upload_php": {
+            "Name": "XAMPP WebDav Upload PHP",
+            "Description": "Upload Shell via Using Supplied Credentials",
+            "CVE": "N/A",
+            "Disclosure": "N/A"
+        }
+    },
+    "payload": {
+        "payload/generic/shell_reverse_tcp": {
+            "Name": "Generic Shell Reverse TCP",
+            "Description": "Generic Command Shell, Reverse TCP",
+            "PayloadHandler": "reverse_tcp",
+            "Architecture": "multi",
+            "Platform": "multi"
+        },
+        "payload/generic/shell_bind_tcp": {
+            "Name": "Generic Shell Bind TCP",
+            "Description": "Generic Command Shell, Bind TCP",
+            "PayloadHandler": "bind_tcp",
+            "Architecture": "multi",
+            "Platform": "multi"
+        }
+    }
+}

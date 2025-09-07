@@ -1,0 +1,23 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+# Python library
+import sys
+
+# Framework
+from framework.console.cli import Interpreter
+
+
+def main() -> None:
+    """ Main entry point for the Terasploit Framework """
+    if sys.argv[1:]:
+        print(sys.argv[1:])
+        return
+
+    # Starts command line interface if no argv is specified.
+    console_cli = Interpreter()
+    console_cli.main()
+
+
+if __name__ == "__main__":
+    main()
