@@ -1,0 +1,14 @@
+# Byte-compiled
+__pycache__/
+
+# Logs
+*.log
+
+# Environments
+.venv
+
+# Visual Studio Code
+.vscode/
+
+# Directories
+.dev/
