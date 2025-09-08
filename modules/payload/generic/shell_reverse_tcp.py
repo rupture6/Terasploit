@@ -6,7 +6,7 @@ Documentation: N/A
 ----
 """
 
-from framework.sessions import pulsar_generic
+from framework.sessions.unix import pulsar_generic
 from framework.modules.metadata import (
     Module,
     Arch,

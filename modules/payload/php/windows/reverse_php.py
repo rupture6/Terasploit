@@ -17,7 +17,7 @@ from lib.utils.printer import (
 
 # Framework
 from framework.modules.payload import Payload
-from framework.sessions import pulsar_generic
+from framework.sessions.windows import pulsar_generic
 from framework.modules.metadata import (
     Extension,
     Module,

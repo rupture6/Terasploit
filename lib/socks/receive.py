@@ -52,10 +52,12 @@ def receive_fixed_size_data(
             if not readable:
                 break
 
-            chunk = client_socket.recv(min(
-                expected_size - len(received_data),
-                buffer_size
-            ))
+            chunk = client_socket.recv(
+                min(
+                    expected_size - len(received_data),
+                    buffer_size
+                )
+            )
             if not chunk:
                 break
             received_data += chunk

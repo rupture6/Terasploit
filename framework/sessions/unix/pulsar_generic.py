@@ -38,7 +38,7 @@ def session(client_socket: socket.socket):
 
     while active:
         try:
-            command = input(prompt)
+            command = input(prompt).strip()
             if command in ("exit", "background", "pause", "close"):
                 active = False
                 print_status("Putting session in background.")
