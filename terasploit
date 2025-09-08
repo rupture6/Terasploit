@@ -19,5 +19,6 @@ def main() -> None:
     console_cli.main()
 
 
+# Starting point of terasploit console
 if __name__ == "__main__":
     main()

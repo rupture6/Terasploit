@@ -4,11 +4,8 @@ __pycache__/
 # Logs
 *.log
 
-# Environments
-.venv
-
-# Visual Studio Code
-.vscode/
-
 # Directories
+.venv
+.vscode/
 .dev/
+.mypy_cache/
