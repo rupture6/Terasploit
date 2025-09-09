@@ -3,7 +3,6 @@
 """
 Payload: Unix PHP Reverse Shell
 Documentation: N/A
-----
 """
 
 # Python library
@@ -30,28 +29,27 @@ from framework.modules.metadata import (
 class TerasploitModule(Payload):
 
     def __init__(self):
-        super().__setattr__(
-            "info", {
-                "License": "BSD-3-Clause License",
-                "Name": "Unix PHP Reverse Shell",
-                "Module": Module.PAYLOAD,
-                "Arch": Arch.PHP,
-                "Platform": Platform.PHP,
-                "PayloadHandler": PayloadHandler.REVERSE_TCP,
-                "Session": pulsar_generic.session,
-                "Provider": [
-                    "charlie <rupture6.dev[a]gmail.com>",
-                ],
-                "Description": [
-                    "Connect back on the attacker "
-                    "machine and spawn an interactive shell."
-                ],
-                "DefaultOptions": ["LHOST", "LPORT"]
-            }
+        self.info = dict(
+            Name="Unix PHP Reverse Shell",
+            License="BSD-3-Clause License",
+            Module=Module.PAYLOAD,
+            Arch=Arch.PHP,
+            Platform=Platform.PHP,
+            PayloadHandler=PayloadHandler.REVERSE_TCP,
+            Session=pulsar_generic.session,
+            Author=[
+                "charlie <castilloncharlie.a[a]gmail.com>"
+            ],
+            Description=[
+                "Connect back on the attacker "
+                "machine and spawn an interactive shell."
+            ],
+            DefaultOptions=["LHOST", "LPORT"]
         )
 
     def run(self) -> None:
         """ Generate a payload file """
+
         # Generate payload
         payload = self.generate()
 
