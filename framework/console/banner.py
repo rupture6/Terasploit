@@ -7,14 +7,9 @@ from lib.utils.path import module_list
 # Framework
 from framework.metadata import (
     version,
-    github,
-    copyright
+    copyright,
+    email
 )
-
-description = """
-A general-purpose offensive security framework for developing,
-executing, and managing exploits, payloads, and related modules.
-"""
 
 categories = ["auxiliary", "exploit", "encoder", "payload"]
 modules: dict[str, int] = {cat: 0 for cat in categories}
@@ -33,25 +28,14 @@ def display_banner() -> None:
         f"{cat}: {count}" for cat, count in modules.items()
     )
 
-    banner = "\033[33m" + f"Terasploit Framework {version} (CLI)" + "\033[0m"
+    # Terasploit framework
+    printf("\033[33m", f"Terasploit Framework {version}", "\033[0m")
 
-    # Prints everything all at once
-    printf(
-        # Banner
-        banner + "\n" +
+    # Display copyright and email
+    printf("", f"{copyright} {email}", "\n")
 
-        # Description
-        description + "\n" +
+    # Display the module count
+    printf("", f"Modules: ({len(module_list())})")
 
-        # Display the copyright
-        copyright + "\n" +
-
-        # Display the GitHub
-        github + "\n"*2 +
-
-        # Display the module count
-        f"Modules: ({len(module_list())})" + "\n" +
-
-        # Display the counts of each module category
-        module_count + "\n"*2
-    )
+    # Display the counts of each module category
+    printf("", module_count + "\n"*2)

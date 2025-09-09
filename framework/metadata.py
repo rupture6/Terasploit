@@ -16,7 +16,7 @@ developer = "Rupture6"
 author = "Castillon Charlie"
 
 # The email of the author
-email = "<castilloncharlie.a[a]gmail.com>"
+email = "<rupture6.dev[a]gmail.com>"
 
 # The GitHub repository URL
 github = "https://github.com/rupture6/Terasploit"
