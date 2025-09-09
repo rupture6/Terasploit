@@ -1,8 +1,9 @@
 # Byte-compiled
 __pycache__/
 
-# Logs
+# Files
 *.log
+*.pyc
 
 # Directories
 .venv
