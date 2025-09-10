@@ -54,18 +54,18 @@ def _format_request_content(kwargs: dict[str, Any]) -> dict[str, Any]:
 def http_request(
     method: str,
     url: str | None = None,
-    params: dict[Any, Any] | None = None,
-    data: dict[Any, Any] | None = None,
-    headers: dict[Any, Any] | None = None,
-    cookies: dict[Any, Any] | None = None,
-    files: dict[Any, Any] | None = None,
+    params: dict[Any, Any] = {},
+    data: dict[Any, Any] = {},
+    headers: dict[Any, Any] = {},
+    cookies: dict[Any, Any] = {},
+    files: dict[Any, Any] = {},
     auth: tuple[str, str] | None = None,
     timeout: int | float | None = None,
     cert: str | tuple[Any] | None = None,
     stream: bool | None = None,
-    json: dict[Any, Any] | None = None,
-    proxies: dict[Any, Any] | None = OptGet("PROXY"),
-    verify: bool | None = OptGet("SSL"),
+    json: dict[Any, Any] = {},
+    proxies: dict[Any, Any] = OptGet("PROXY"),
+    verify: bool = OptGet("SSL"),
     auth_type: str = "BASIC"
 ) -> requests.Response:
     """ Perform an HTTP request """

@@ -5,14 +5,10 @@ import json
 import os
 
 # Absolute path of the main directory
-PATH = str(os.path.abspath(os.getcwd()))
+PATH = str(os.path.abspath(os.getcwd())) + "/db/module-metadata.json"
 
 # Module metadata json file
-with open(
-    PATH + "/db/module-metadata.json",
-    "r",
-    encoding="utf-8"
-) as metadata_file:
+with open(PATH, "r", encoding="utf-8") as metadata_file:
     metadata_ = json.load(metadata_file)
 
 
