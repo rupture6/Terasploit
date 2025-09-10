@@ -31,7 +31,11 @@ class Opt:
         "VERBOSE": False,
         "LHOST": None,
         "LPORT": 4444,
-        "TIMEOUT": None
+        "TIMEOUT": None,
+        "PROXYUSER": None,
+        "PROXYPASS": None,
+        "USERNAME": None,
+        "PASSWORD": None
     }
 
     # The main options value storage
@@ -50,7 +54,11 @@ class Opt:
         "VERBOSE": "no",
         "LHOST": "yes",
         "LPORT": "yes",
-        "TIMEOUT": "no"
+        "TIMEOUT": "no",
+        "PROXYUSER": "yes",
+        "PROXYPASS": "yes",
+        "USERNAME": "yes",
+        "PASSWORD": "yes"
     }
 
     # Default required, this variable remains unchanged.
@@ -66,7 +74,11 @@ class Opt:
         "VERBOSE": "Enable verbose output for debugging",
         "LHOST": "The listen address",
         "LPORT": "The listen port (tcp)",
-        "TIMEOUT": "Connection time limit"
+        "TIMEOUT": "Connection time limit",
+        "PROXYUSER": "Username for proxy authentication",
+        "PROXYPASS": "Password for proxy authentication",
+        "USERNAME": "Username for authentication",
+        "PASSWORD": "Password for authentication"
     }
 
     # Default description, this variable remains unchanged.
@@ -82,7 +94,11 @@ class Opt:
         "VERBOSE": Validate.boolean,
         "LHOST": Validate.host,
         "LPORT": Validate.port,
-        "TIMEOUT": Validate.int_float_object
+        "TIMEOUT": Validate.int_float_object,
+        "PROXYUSER": None,
+        "PROXYPASS": None,
+        "USERNAME": None,
+        "PASSWORD": None
     }
 
     # Default validator, this variable remains unchanged.

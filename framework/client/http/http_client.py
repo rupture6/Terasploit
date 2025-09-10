@@ -4,27 +4,23 @@
 import requests
 import urllib3
 from typing import Any
+from requests.auth import HTTPDigestAuth
 
 # Library
 from lib.utils.exception import InvalidError
 
+# Framework
+from framework.console.options import OptGet
+
+# List of http methods
+http_methods = ["get", "post", "put", "delete", "head", "options", "patch"]
+
 # Disable insecure request warning because it doesn't help at all
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-# List of http methods
-http_methods = [
-    "get",
-    "post",
-    "put",
-    "delete",
-    "head",
-    "options",
-    "patch"
-]
-
 
 class HTTP:
-    """ HTTP session """
+    """ HTTP client session """
 
     session = requests.Session()
 
@@ -47,8 +43,8 @@ def _format_request_content(kwargs: dict[str, Any]) -> dict[str, Any]:
     for key, value in kwargs.items():
         try:
             # formats to float only
-            request_content[key] = float(value)
-        except ValueError:
+            request_content[key] = float(str(value))
+        except (TypeError, ValueError):
             request_content[key] = value
 
     # Return the formatted request content
@@ -63,13 +59,14 @@ def http_request(
     headers: dict[Any, Any] | None = None,
     cookies: dict[Any, Any] | None = None,
     files: dict[Any, Any] | None = None,
-    auth: tuple[Any] | None = None,
+    auth: tuple[str, str] | None = None,
     timeout: int | float | None = None,
-    proxies: dict[Any, Any] | None = None,
-    verify: bool | None = None,
     cert: str | tuple[Any] | None = None,
     stream: bool | None = None,
     json: dict[Any, Any] | None = None,
+    proxies: dict[Any, Any] | None = OptGet("PROXY"),
+    verify: bool | None = OptGet("SSL"),
+    auth_type: str = "BASIC"
 ) -> requests.Response:
     """ Perform an HTTP request """
 
@@ -86,7 +83,6 @@ def http_request(
             "headers": headers,
             "cookies": cookies,
             "files": files,
-            "auth": auth,
             "timeout": timeout,
             "proxies": proxies,
             "verify": verify,
@@ -95,6 +91,15 @@ def http_request(
             "json": json,
         }
     )
+    if auth:
+        if auth_type.upper() == "BASIC":
+            requests_contents["auth"] = auth
+        if auth_type.upper() == "DIGEST":
+            requests_contents["auth"] = HTTPDigestAuth(auth[0], auth[1])
+        if auth_type.upper() not in ("DIGEST", "BASIC"):
+            raise TypeError(f"Authentication type is invalid... {auth_type}")
+    else:
+        requests_contents["auth"] = None
 
     # Get the request method attribute
     request_lib = getattr(requests, method.lower())

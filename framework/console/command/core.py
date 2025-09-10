@@ -380,14 +380,21 @@ class Command(Utils):
 
         # Validate and set option value if not a global option
         try:
-            is_valid: Any = Opt.validator[keyword](formatted_value)
-            if is_valid:
-                Opt.options[keyword] = formatted_value
-                printf(f"{keyword} => {formatted_value!r}")
-            else:
-                raise ValidationError(
-                    f"Invalid, {keyword} => {formatted_value!r}"
-                )
+            if Opt.validator[keyword]:
+                is_valid: Any = Opt.validator[keyword](formatted_value)
+                if is_valid:
+                    Opt.options[keyword] = formatted_value
+                    printf(f"{keyword} => {formatted_value!r}")
+                    return
+                else:
+                    raise ValidationError(
+                        f"Invalid, {keyword} => {formatted_value!r}"
+                    )
+
+            # Set if there is no validator
+            Opt.options[keyword] = formatted_value
+            printf(f"{keyword} => {formatted_value!r}")
+
         except KeyError:
             Opt.options[keyword] = formatted_value
             printf(f"{keyword} => {formatted_value!r}")

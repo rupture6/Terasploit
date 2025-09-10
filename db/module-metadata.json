@@ -2,31 +2,45 @@
     "exploit": {
         "exploit/multi/handler": {
             "Name": "Generic Payload Handler",
-            "Description": "Handles payloads that have happened outside of Framework",
+            "Description": "Handles payload connections initiated outside of the Framework",
             "CVE": "N/A",
             "Disclosure": "N/A"
         },
         "exploit/windows/http/xampp_webdav_upload_php": {
-            "Name": "XAMPP WebDav Upload PHP",
-            "Description": "Upload Shell via Using Supplied Credentials",
+            "Name": "XAMPP WebDAV PHP Upload",
+            "Description": "Exploits XAMPP WebDAV to upload a PHP shell using valid credentials",
             "CVE": "N/A",
-            "Disclosure": "N/A"
+            "Disclosure": "2003-09-05"
         }
     },
     "payload": {
         "payload/generic/shell_reverse_tcp": {
             "Name": "Generic Shell Reverse TCP",
-            "Description": "Generic Command Shell, Reverse TCP",
+            "Description": "Provides a generic command shell over a reverse TCP connection",
             "PayloadHandler": "reverse_tcp",
             "Architecture": "multi",
             "Platform": "multi"
         },
         "payload/generic/shell_bind_tcp": {
             "Name": "Generic Shell Bind TCP",
-            "Description": "Generic Command Shell, Bind TCP",
+            "Description": "Provides a generic command shell over a bind TCP connection",
             "PayloadHandler": "bind_tcp",
             "Architecture": "multi",
             "Platform": "multi"
+        },
+        "payload/php/unix/reverse_php": {
+            "Name": "Unix PHP Reverse Shell",
+            "Description": "Provides a PHP command shell on Unix via a reverse TCP connection",
+            "PayloadHandler": "reverse_tcp",
+            "Architecture": "php",
+            "Platform": "php"
+        },
+        "payload/php/windows/reverse_php": {
+            "Name": "Windows PHP Reverse Shell",
+            "Description": "Provides a PHP command shell on Windows via a reverse TCP connection",
+            "PayloadHandler": "reverse_tcp",
+            "Architecture": "php",
+            "Platform": "php"
         }
     }
 }

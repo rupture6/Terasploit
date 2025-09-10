@@ -48,11 +48,15 @@ class Interpreter(Command):
         """ Initialize the interpreter """
 
         # Initialize logging
-        Logger.instance = Log(
-            logfile="terasploit.log",
-            level="INFO",
-            console=Config.logging
-        )
+        if Config.logging:
+            Logger.instance = Log(
+                logfile="terasploit.log",
+                level="INFO",
+                console=Config.logging
+            )
+
+            # Log interpreter initialization
+            Logger.instance.log("Interpreter initialized")
 
         # Create history file if it does not exist
         history_file_path = self.history_file
@@ -67,9 +71,6 @@ class Interpreter(Command):
         # Activate command line
         self.activate_command_line = True
 
-        # Log interpreter initialization
-        Logger.instance.log("Interpreter initialized")
-
     def exception_message(self, info: Exception) -> None:
         """ Display exception message """
 
@@ -81,7 +82,7 @@ class Interpreter(Command):
         # tracing errors.
 
         # Verbosity developer option (edited via sourcecode only)
-        verbosity = False
+        verbosity = True
 
         # Check if verbosity is False
         if not verbosity:
@@ -202,7 +203,8 @@ class Interpreter(Command):
         if not Session.sessions:
 
             # Log the exit
-            Logger.instance.log("Console terminated")
+            if Config.logging:
+                Logger.instance.log("Console terminated")
 
             # Stop the command line interface
             self.activate_command_line = False
