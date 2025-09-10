@@ -119,9 +119,10 @@ class Utils:
                 Opt.registered_payload_options.extend(opts)
 
             printf(f"payload => {Module.payload_path.replace('modules/', '')}")
+            return
 
         # Set encoder module
-        elif "encoder" in module_path:
+        if "encoder" in module_path:
 
             # Try importing encoder module
             try:
@@ -141,6 +142,7 @@ class Utils:
             Module.encoder = terasploit_encoder
             Module.encoder_path = humanize_path(path)
             printf(f"encoder => {Module.encoder_path.replace('modules/', '')}")
+            return
 
         # If not payload or encoder, raise error
         raise TypeError("Payload & Encoder can only be set.")
