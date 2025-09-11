@@ -31,7 +31,8 @@ from lib.utils.path import (
     module_list,
     search_modules,
     modulize_path,
-    humanize_path
+    humanize_path,
+    parse_python_path
 )
 from lib.utils.exception import (
     InvalidError,
@@ -79,7 +80,7 @@ class Utils:
         path = modulize_path(module_path)
 
         # Set payload module
-        if "payload" in module_path:
+        if "payload" in parse_python_path(path):
 
             # Reset payload options to default
             for i in Opt.registered_payload_options:
@@ -122,7 +123,7 @@ class Utils:
             return
 
         # Set encoder module
-        if "encoder" in module_path:
+        if "encoder" in parse_python_path(path):
 
             # Try importing encoder module
             try:
