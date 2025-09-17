@@ -82,7 +82,7 @@ class Interpreter(Command):
         # tracing errors.
 
         # Verbosity developer option (edited via sourcecode only)
-        verbosity = True
+        verbosity = False
 
         # Check if verbosity is False
         if not verbosity:
